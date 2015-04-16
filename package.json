@@ -1,0 +1,9 @@
+{
+  "name": "nodecontrol",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3"
+  }
+}
