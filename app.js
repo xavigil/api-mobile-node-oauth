@@ -1,18 +1,15 @@
 var express = require('express');
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	passport = require('passport'),
+	router = require('./router');
 
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
 
 var port = process.env.PORT || 3000;
-
-var router = express.Router();
-
-router.get('/', function(req, res) {
-	res.json({ message: 'welcome!' });
-});
 
 app.use('/api', router);
 
