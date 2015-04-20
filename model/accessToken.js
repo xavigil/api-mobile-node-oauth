@@ -10,5 +10,5 @@ exports.save = function(token, expirationDate, userId, clientId, next)
 		clientId: clientId
 	};
 	tokens[token] = accessToken;
-	next(null, tokens[accessToken];
+	next(null, accessToken);
 }

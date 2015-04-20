@@ -5,7 +5,7 @@ var server = oauth2orize.createServer();
 
 server.exchange(oauth2orize.exchange.password(function (client, username, password, scope, done) 
 {
-
+	
 }));
 
 exports.token = [
