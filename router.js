@@ -7,6 +7,7 @@ authRoutes.post('/auth/login',controller.authentication.login);
 authRoutes.get('/auth/logout',controller.authentication.logout);
 
 var privateRoutes = express.Router();
+privateRoutes.use( passport.authenticate('bearer', { session: false }) );
 privateRoutes.get('/account/info', controller.accounts.info);
 
 

@@ -1,20 +1,20 @@
 
 var clients = [{
 	id:1,
-	client_id:'iOS',
-	client_secret:'iOS secret'
+	clientId:'iOS',
+	clientSecret:'iOS secret'
 },
 {
 	id:2,
-	client_id:'Android',
-	client_secret:'android secret'
+	clientId:'Android',
+	clientSecret:'android secret'
 }];
 
 exports.find = function(clientId, next)
 {
 	var result = null;
 	for(var i=0; i<clients.length; i++){
-		if(clients[i]===clientId){
+		if(clients[i].clientId===clientId){
 			result = clients[i];
 			break;
 		}

@@ -18,7 +18,7 @@ passport.use(new BasicStrategy(
 			if(!client) return next(null,false);
 			if(client.clientSecret !== password) return next(null,false);
 
-			return(null, client);
+			return next(null, client);
 		});
 	}
 ));
