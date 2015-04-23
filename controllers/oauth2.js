@@ -22,7 +22,7 @@ server.exchange(oauth2orize.exchange.password(function (client, username, passwo
 			if(err) return done(err);
 
 			var newRefreshToken = utils.newToken(config.token.refreshTokenLength);
-			model.refreshToken.save(newRefreshToken,account.id, client.id, function(err, refreshToken)
+			model.refreshToken.save(newRefreshToken, account.id, client.id, function(err, refreshToken)
 			{
 				if(err) return done(err);
 
@@ -35,7 +35,21 @@ server.exchange(oauth2orize.exchange.password(function (client, username, passwo
 
 server.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done)
 {
+	model.refreshToken.find(refreshToken, function(err, token){
+		if(err) return done(err);
+		if(!token) return done(null, false);
+		if(token.clientId !== client.id ) return done(null, false);
 
+		var newToken = utils.newToken(config.token.accessTokenLength);
+		var expirationDate = config.token.calculateExpirationDate();
+		model.accessToken.save(newToken, expirationDate, token.userId, token.clientId, 
+			function(err, accessToken)
+			{
+				if(err) return done(err);
+				if(!accessToken) return done(null, false);
+				return done(null, accessToken.accessToken, null, {expires_in: config.token.expiresIn});
+			});
+	});
 }));
 
 exports.token = [

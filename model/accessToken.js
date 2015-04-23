@@ -4,7 +4,7 @@ var tokens = {};
 exports.save = function(token, expirationDate, userId, clientId, done)
 {
 	var accessToken = {
-		accesToken:token,
+		accessToken:token,
 		expirationDate: expirationDate,
 		userId: userId,
 		clientId: clientId

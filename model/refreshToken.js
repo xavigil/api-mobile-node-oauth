@@ -11,3 +11,8 @@ exports.save = function(token, userId, clientId, done)
 	refreshTokens[token] = refreshToken;
 	return done(null, refreshToken);
 }
+
+exports.find = function(token, done)
+{
+	return done(null,refreshTokens[token]);
+}
