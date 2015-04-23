@@ -8,7 +8,7 @@ var server = oauth2orize.createServer();
 
 server.exchange(oauth2orize.exchange.password(function (client, username, password, scope, done) 
 {
-	model.account.find(username,function(err,account){
+	model.account.findByUsername(username,function(err,account){
 		if(err) return done(err);
 		if(!account) return done(null,false);
 		if( account.hashedPassword !== utils.hashPassword(password,account.salt) ){
@@ -31,6 +31,11 @@ server.exchange(oauth2orize.exchange.password(function (client, username, passwo
 		});
 
 	});
+}));
+
+server.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done)
+{
+
 }));
 
 exports.token = [

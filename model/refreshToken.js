@@ -1,6 +1,6 @@
 var refreshTokens = {};
 
-exports.save = function(token, userId, clientId, next)
+exports.save = function(token, userId, clientId, done)
 {
 	var refreshToken = {
 		refreshToken:token,
@@ -9,5 +9,5 @@ exports.save = function(token, userId, clientId, next)
 	};
 
 	refreshTokens[token] = refreshToken;
-	return next(null, refreshToken);
+	return done(null, refreshToken);
 }

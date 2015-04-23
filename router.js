@@ -1,10 +1,10 @@
-var express = require('express');
+var express = require('express'),
+	oauth2 = require('./controllers/oauth2');
 
 var controller = require('./controllers');
 
 var authRoutes = express.Router();
-authRoutes.post('/auth/login',controller.authentication.login);
-authRoutes.get('/auth/logout',controller.authentication.logout);
+authRoutes.post('/auth/token', oauth2.token);
 
 var privateRoutes = express.Router();
 privateRoutes.use( passport.authenticate('bearer', { session: false }) );

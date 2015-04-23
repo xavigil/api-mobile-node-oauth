@@ -10,7 +10,7 @@ var clients = [{
 	clientSecret:'android secret'
 }];
 
-exports.find = function(clientId, next)
+exports.find = function(clientId, done)
 {
 	var result = null;
 	for(var i=0; i<clients.length; i++){
@@ -19,5 +19,5 @@ exports.find = function(clientId, next)
 			break;
 		}
 	}
-	next(null, result);
+	done(null, result);
 };

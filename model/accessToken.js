@@ -1,7 +1,7 @@
 
 var tokens = {};
 
-exports.save = function(token, expirationDate, userId, clientId, next)
+exports.save = function(token, expirationDate, userId, clientId, done)
 {
 	var accessToken = {
 		accesToken:token,
@@ -10,5 +10,16 @@ exports.save = function(token, expirationDate, userId, clientId, next)
 		clientId: clientId
 	};
 	tokens[token] = accessToken;
-	next(null, accessToken);
+	done(null, accessToken);
+}
+
+exports.find = function(token, done)
+{
+	return done(null,tokens[token]);
+}
+
+exports.delete = function(token, done)
+{
+	delete tokens[token];
+	return done(null);
 }
