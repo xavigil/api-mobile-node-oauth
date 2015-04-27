@@ -14,22 +14,7 @@ server.exchange(oauth2orize.exchange.password(function (client, username, passwo
 		if( account.hashedPassword !== utils.hashPassword(password,account.salt) ){
 			return done(null, false);
 		}
-
-		var newToken = utils.newToken(config.token.accessTokenLength);
-		var expirationDate = config.token.calculateExpirationDate();
-		model.accessToken.save(newToken, expirationDate, account.id, client.id, function(err, accessToken)
-		{
-			if(err) return done(err);
-
-			var newRefreshToken = utils.newToken(config.token.refreshTokenLength);
-			model.refreshToken.save(newRefreshToken, account.id, client.id, function(err, refreshToken)
-			{
-				if(err) return done(err);
-
-				return done(null, newToken, newRefreshToken, {expires_in: config.token.expiresIn});
-			});
-		});
-
+		newAccessToken(account.id, client.id, done);
 	});
 }));
 
@@ -51,6 +36,25 @@ server.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken
 			});
 	});
 }));
+
+function newAccessToken(userId, clientId, done){
+	var newToken = utils.newToken(config.token.accessTokenLength);
+	var expirationDate = config.token.calculateExpirationDate();
+	model.accessToken.save(newToken, expirationDate, userId, clientId, function(err, accessToken)
+	{
+		if(err) return done(err);
+
+		var newRefreshToken = utils.newToken(config.token.refreshTokenLength);
+		model.refreshToken.save(newRefreshToken, userId, clientId, function(err, refreshToken)
+		{
+			if(err) return done(err);
+
+			return done(null, newToken, newRefreshToken, {expires_in: config.token.expiresIn});
+		});
+	});
+}
+
+exports.newAccessToken = newAccessToken;
 
 exports.token = [
 	passport.authenticate('basic', {session: false}),

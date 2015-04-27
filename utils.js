@@ -11,3 +11,13 @@ exports.hashPassword = function(password,salt){
 exports.newToken = function(len){
 	return crypto.randomBytes(len).toString('hex');
 }
+
+exports.mergeObjects = function(a, b)
+{
+	if (a && b) {
+		for (var key in b) {
+			a[key] = b[key];
+		}
+	}
+	return a;
+};

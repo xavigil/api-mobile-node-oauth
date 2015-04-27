@@ -4,6 +4,7 @@ var express = require('express'),
 var controller = require('./controllers');
 
 var authRoutes = express.Router();
+authRoutes.post('/account',passport.authenticate('basic', { session: false }),controller.accounts.createAccount);
 authRoutes.post('/auth/token', oauth2.token);
 
 var privateRoutes = express.Router();
