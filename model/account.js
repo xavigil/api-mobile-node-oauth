@@ -6,14 +6,16 @@ var accounts = [
 ];
 
 exports.save = function(username, name, age, password, done){
+	if(!username || !password) return done(new Error('missing param'));
+
 	var salt = utils.newSalt();
 	var hashedPwd = utils.hashPassword(password, salt);
 
 	var account = {
 		id:accounts.length+1, 
 		username:username,
-		name:name, 
-		age:age, 
+		name:name || '',
+		age:age || '', 
 		hashedPassword:hashedPwd,
 		salt:salt
 	};

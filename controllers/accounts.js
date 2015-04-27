@@ -32,8 +32,8 @@ exports.createAccount = function(req, res){
 }
 
 exports.info = function(req, res){
-	res.status(200).send({
-		username:'Sam',
-		age:19
-	});
+	var account = req.user;
+	delete account.salt;
+	delete account.hashedPassword;
+	res.status(200).send(account);
 }
