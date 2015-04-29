@@ -32,7 +32,7 @@ exports.createAccount = function(req, res){
 }
 
 exports.info = function(req, res){
-	var account = req.user;
+	var account = JSON.parse(JSON.stringify(req.user)); // Clone req.user
 	delete account.salt;
 	delete account.hashedPassword;
 	res.status(200).send(account);
