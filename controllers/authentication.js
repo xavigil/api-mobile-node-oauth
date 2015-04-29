@@ -4,15 +4,15 @@ var passport = require('passport'),
 	model = require('../model');
 
 passport.use(new BasicStrategy(
-	function(username, password, next)
+	function(username, password, done)
 	{
 		model.client.find(username, function(err,client)
 		{
-			if(err) return next(err);
-			if(!client) return next(null,false);
-			if(client.clientSecret !== password) return next(null,false);
+			if(err) return done(err);
+			if(!client) return done(null,false);
+			if(client.clientSecret !== password) return done(null,false);
 
-			return next(null, client);
+			return done(null, client);
 		});
 	}
 ));
